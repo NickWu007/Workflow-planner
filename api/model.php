@@ -23,6 +23,23 @@ function getUserList() {
   return $user_list;
 }
 
+function addUser($username, $password) {
+  global $user_list;
+
+  foreach ($user_list as $idx => $user) {
+    if ($user['username'] == $username) {
+      return NULL;
+    }
+  }
+
+  $new_id = count($user_list) + 1;
+  $user_list[] = array('id' => $new_id,
+                     'username' => $user_name,
+                     'password' => $password);
+
+  return $new_id;
+}
+
 function tryLogin($username, $password) {
   global $user_list;
 
