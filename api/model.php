@@ -1,54 +1,101 @@
 <?php
 
-$user_list = array();
+class User {
+  private $id;
+  private $name;
+  private $email;
+  private $password;
 
-$user_list[] = array('id' => 1,
-                     'username' => 'Nick Wu',
-                     'password' => '1234');
+  private static function connect() {
+    return new mysqli("classroom.cs.unc.edu", "junaowu", "Wja673581429", "junaowudb");
+  }
+    
+  public static function create($name, $email, $password) {
+    $mysqli = User::connect();
 
-$user_list[] = array('id' => 2,
-                     'username' => 'Derek Chen',
-                     'password' => '1234');
-
-$user_list[] = array('id' => 3,
-                     'username' => 'Kathryn Rendell',
-                     'password' => '1234');
-
-$user_list[] = array('id' => 4,
-                     'username' => 'Greg McDonagh',
-                     'password' => '1234');
-
-function getUserList() {
-  global $user_list;
-  return $user_list;
-}
-
-function addUser($username, $password) {
-  global $user_list;
-
-  foreach ($user_list as $idx => $user) {
-    if ($user['username'] == $username) {
-      return NULL;
+    $result = $mysqli->query("insert into User values (0, \"" . 
+                           $name . "\", \"" . $email . "\", \"" . $password . "\")");
+    if ($result) {
+      $new_id = $mysqli->insert_id;
+      return new User($new_id, $name, $email, $password);
     }
+    return null;
   }
 
-  $new_id = count($user_list) + 1;
-  $user_list[] = array('id' => $new_id,
-                     'username' => $user_name,
-                     'password' => $password);
+  public static function findByName($name) {
+    $mysqli = User::connect();
 
-  return $new_id;
-}
-
-function tryLogin($username, $password) {
-  global $user_list;
-
-  foreach ($user_list as $idx => $user) {
-    if ($user['username'] == $username && $user['password'] == $password) {
-      return $user['id'];
+    $result = $mysqli->query("select * from User where username = \"" . $name . "\"");
+    if ($result) {
+      if ($result->num_rows == 0){
+        return null;
+      }
+      $transaction_info = $result->fetch_array();
+      return new User($transaction_info['id'],
+                 $transaction_info['name'],
+                 $transaction_info['email'],
+                 $transaction_info['password']);
     }
+    return null;
   }
-  return NULL;
+
+  public static function findByEmail($email) {
+    $mysqli = User::connect();
+
+    $result = $mysqli->query("select * from User where email = \"" . $email . "\"");
+    if ($result) {
+      if ($result->num_rows == 0){
+        return null;
+      }
+      $transaction_info = $result->fetch_array();
+      return new User($transaction_info['id'],
+                 $transaction_info['name'],
+                 $transaction_info['email'],
+                 $transaction_info['password']);
+    }
+    return null;
+  }
+
+  private function __construct($id, $name, $email, $password) {
+    $this->id = $id;
+    $this->name = $name;
+    $this->email = $email;
+    $this->password = $password;
+  }
+
+  public function getID() {
+    return $this->id;
+  }
+
+
+  // TODO: use the owner's id to retrieve the appropriate owner object from the Owner ORM class and return that.
+  public function getName() {
+    // We'll just return the owner's id here.
+    return $this->name;
+  }
+
+  public function getEmail() {
+    return $this->email;
+  }
+
+  public function getPassword() {
+    return $this->password;
+  }
+
+  public function setPassword($new_password) {
+    
+    $this->password = $new_password;
+    // Implicit style updating
+    return $this->update();
+  }
+
+  private function update() {
+    $mysqli = User::connect();
+
+    $result = $mysqli->query("update User set password = \"" . $this->password . "\" where id = " . $this->id);
+    return $result;
+  }
+
 }
 
 ?>
