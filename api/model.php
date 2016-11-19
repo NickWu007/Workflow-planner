@@ -21,6 +21,23 @@ class User {
     }
     return null;
   }
+  
+  public static function findByID($id) {
+    $mysqli = User::connect();
+    
+    $result = $mysqli->query("select * from User where id = \"" . $id . "\"");
+    if ($result) {
+      if ($result->num_rows == 0){
+        return null;
+      }
+      $transaction_info = $result->fetch_array();
+      return new User($transaction_info['id'],
+                 $transaction_info['name'],
+                 $transaction_info['email'],
+                 $transaction_info['password']);
+    }
+    return null;
+  }
 
   public static function findByName($name) {
     $mysqli = User::connect();
