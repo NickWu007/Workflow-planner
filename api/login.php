@@ -9,23 +9,28 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
     if (!is_null($password) && !is_null($username)) {
 
-        $userId = tryLogin($username, $password);
+        $user = User::findByName($username);
 
-        if (is_null($userId)) {
-
-            header("HTTP/1.1 404 Not Found");
-            print("Resource requested not found");
+        if (is_null($user)) {
+            header("HTTP/1.1 400 Bad Request");
+            print("User doesn't exist");
             exit();
         }
 
+        if ($user->getPassword() != $password) {
+            header("HTTP/1.1 401 Unauthorized");
+            print("Username or password incorrect.");
+            exit();
+        }
+
+        $output = array(
+          'userID' => $user->getID()
+        );
 
         header("Content-type: application/json");
-        $output = array(
-          'userID' => $userId
-        );
-        header("Content-type: application/json");
+        header("HTTP/1.1 200 OK");
         print(json_encode($output));
-        exit();    
+        exit();
     }
 }
 
