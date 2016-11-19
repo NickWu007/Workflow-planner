@@ -26,7 +26,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         $output = array(
           'userID' => $user->getID()
         );
-
+        
+        setcookie("user", $user->getID());
         header("Content-type: application/json");
         header("HTTP/1.1 200 OK");
         print(json_encode($output));
