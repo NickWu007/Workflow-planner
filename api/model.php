@@ -7,7 +7,7 @@ class User {
   private $password;
 
   private static function connect() {
-    return new mysqli("classroom.cs.unc.edu", "junaowu", "Wja673581429", "junaowudb");
+    return new mysqli("classroom.cs.unc.edu", "superqd", "upm3XuKe333tZjvY", "superqddb");
   }
     
   public static function create($name, $email, $password) {
