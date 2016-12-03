@@ -9,7 +9,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
      $path_components = explode('/', $_SERVER['PATH_INFO']);
 
      if ((count($path_components) >= 2) && ($path_components[1] != "")) {
-	require_once('authenticate.php');
+	    require_once('authenticate.php');
         $user_id = intval($path_components[1]);
         $user = User::findByID($user_id);
         if(is_null($user)) {
@@ -57,7 +57,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                 exit();
             }
             
-            $output = array( 'userID' => $new_user->getID(), 'username' => $username, 'email' => $email);
+            $output = array( 'user_ID' => $new_user->getID(), 'username' => $username, 'email' => $email);
             
             header("Content-type: application/json");
             header("HTTP/1.1 200 OK");
