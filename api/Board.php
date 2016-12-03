@@ -41,10 +41,10 @@ class Board {
       if ($result->num_rows == 0){
         return null;
       }
-      while($user_id_row = $result->fetch_row()){
-      	$user_ids[] = $user_id_row[0];
+      while($board_id_row = $result->fetch_row()){
+      	$board_ids[] = $board_id_row[0];
       }
-     return $user_ids;
+     return $board_ids;
     }
     return null;
   }
