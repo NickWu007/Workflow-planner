@@ -114,7 +114,7 @@ class Item {
     
     $this->description = $new_description;
     $mysqli = Item::connect();
-    $result = $mysqli->query("update Item set completed = \"" . $this->completed . "\" where id = " . $this->id);
+    $result = $mysqli->query("update Item set description = \"" . $this->description . "\" where id = " . $this->id);
     return $result;
 
   }
@@ -125,7 +125,7 @@ class Item {
     $mysqli = Item::connect();
     $result = $mysqli->query("update Item set status = " . $this->status . " where id = " . $this->id);
     return $result;
-    
+
   }
   
   public function setPomodoros($new_pomodoros) {
