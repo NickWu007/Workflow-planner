@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Pomodoro timer</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	<script type="text/javascript" src="timer.js"> </script>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <link rel="stylesheet" type="text/css" href="timer.css">
+</head>
+<body>
+<div class="container-fluid well">
+
+	<div class="status row text-center">
+		Not started working yet.
+	</div>
+
+	<div class="timer row" id="timer">
+		<div class="col-md-7 col-sm-7 text-center">
+			<span class="time" id="minutes">25</span>
+			<span class=" time colon">:</span>
+			<span class="time" id="seconds">00</span>
+		</div>
+		<div class="controls col-md-5 col-sm-5 text-center">
+			<div id="startstop" class="btn btn-success startstop">Start</div>
+		</div>
+	</div>
+
+	<div class="row report">
+		Pomodoros done today: <span class="pomodoro"></span>
+	</div>
+
+	<div class="row target well">
+		<div class="target-des text-center">No task selected</div>
+		<small class="target-footer text-muted">Click on a task on the board to select it.</small>
+	</div>
+
+	<div class="row"><div class="btn btn-default task">Read some books</div></div>
+
+	<div class="explain row" id="explanation">
+		<p>Work more efficiently with the <a href="http://www.pomodorotechnique.com/" target="_blank">Pomodoro technique</a></p>
+	</div>
+</div>
+
+<audio id="ding" src="mp3/ding.mp3" preload="auto" autobuffer></audio>
+<audio id="dingling" src="mp3/dingling.mp3" preload="auto" autobuffer></audio>
+
+</body>
+</html>
