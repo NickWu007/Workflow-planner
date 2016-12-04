@@ -12,7 +12,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         $user = User::findByName($username);
 
         if (is_null($user)) {
-            header("HTTP/1.1 400 Bad Request");
+            header("HTTP/1.1 404 Bad Request");
             print("User doesn't exist");
             exit();
         }
