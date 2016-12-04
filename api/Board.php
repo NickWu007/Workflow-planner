@@ -14,7 +14,7 @@ class Board {
                            $new_description . "\", \"" . $new_user_id . "\")");
     if ($result) {
       $new_id = $mysqli->insert_id;
-      return new Board($new_id, $description, $userID);
+      return new Board($new_id, $new_description, $new_user_id);
     }
     return null;
   }
@@ -22,7 +22,7 @@ class Board {
   public static function findByID($id) {
     $mysqli = Board::connect();
     
-    $result = $mysqli->query("select * from Board where id = \"" . $id . "\"");
+    $result = $mysqli->query("select * from Board where id = " . $id );
     if ($result) {
       if ($result->num_rows == 0){
         return null;
@@ -36,7 +36,7 @@ class Board {
   }
   public static function findByUserID($user_id) {
     $mysqli = Board::connect();
-    $result = $mysqli->query("select id from Board where user_id = \"" . $user_id . "\"");
+    $result = $mysqli->query("select id from Board where user_id = " . $user_id );
     if ($result) {
       if ($result->num_rows == 0){
         return null;
@@ -79,7 +79,7 @@ class Board {
   
   public function delete() {
     $mysqli = Board::connect();
-    $result = $mysqli->query("delete FROM Board where id = \"$this->id\"");
+    $result = $mysqli->query("delete FROM Board where id = " .$this->id);
     return $result;
   }
 }
