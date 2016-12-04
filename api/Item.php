@@ -55,9 +55,9 @@ class Item {
     return null;
   }
 
-  public static function findByUserID($user_id) {
+  public static function findByUserAndBoard($user_id,$board_id) {
     $mysqli = Item::connect();
-    $result = $mysqli->query("select id from Item where user_id = " . $user_id  );
+    $result = $mysqli->query("select id from Item where user_id = " . $user_id . "and board_id = " . $board_id );
     if ($result) {
       if ($result->num_rows == 0){
         return null;
@@ -70,21 +70,7 @@ class Item {
     return null;
   }
 
-  public static function findByBoardID($board_id) {
-    $mysqli = Item::connect();
-    $result = $mysqli->query("select id from Item where user_id = " . $board_id);
-    
-    if ($result) {
-      if ($result->num_rows == 0){
-        return null;
-      }
-      while($board_id_row = $result->fetch_row()){
-        $board_ids[] = $board_id_row[0];
-      }
-     return $board_ids;
-    }
-    return null;
-  }
+ 
 
   private function __construct($id, $description, $status,$user_id,$board_id,$pomodoros,$completed) {
     $this->id = $id;
@@ -127,24 +113,45 @@ class Item {
   public function setDescription($new_description) {
     
     $this->description = $new_description;
-    // Implicit style updating
-    return $this->update();
+    $mysqli = Item::connect();
+    $result = $mysqli->query("update Item set completed = \"" . $this->completed . "\" where id = " . $this->id);
+    return $result;
+
   }
 
   public function setStatus($new_status) {
     
     $this->status = $new_status;
-    // Implicit style updating
-    return $this->update();
-  }
-
-
-
-  private function update() {
     $mysqli = Item::connect();
-    $result = $mysqli->query("update Item set description = \"" . $this->description . "\" where id = " . $this->id);
+    $result = $mysqli->query("update Item set status = " . $this->status . " where id = " . $this->id);
     return $result;
+    
   }
+  
+  public function setPomodoros($new_pomodoros) {
+    
+    $this->pomodoros = $new_pomodoros;
+    $mysqli = Item::connect();
+    $result = $mysqli->query("update Item set pomodoros = \"" . $this->pomodoros . "\" where id = " . $this->id);
+    return $result;
+
+  }
+  public function setCompleted($new_c) {
+    
+    $this->completed = $new_c;
+    $mysqli = Item::connect();
+    $result = $mysqli->query("update Item set completed = \"" . $this->completed . "\" where id = " . $this->id);
+    return $result;
+
+  }
+   
+
+
+  // private function update() {
+  //   $mysqli = Item::connect();
+  //   $result = $mysqli->query("update Item set description = \"" . $this->description . "\" where id = " . $this->id);
+  //   return $result;
+  // }
   
   public function delete() {
     $mysqli = Item::connect();
