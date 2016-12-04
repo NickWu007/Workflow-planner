@@ -36,5 +36,37 @@
   <p>Users can have multiple boards which are stored in the settings tab. Users have the option to delete boards/share/goto</p>
 	<a href="settings.html">settings.html</a>
 </div>
+<div class="db-schema">
+  <h2>Database schema</h2>
+  <h4>Schema</h2>
+  <h5>User</h5>
+  <ul>
+  	<li>user_ID(primary key)</li>
+  	<li>username</li>
+  	<li>email</li>
+  	<li>password</li>
+  </ul>
+  <h5>Board</h5>
+  <ul>
+  	<li>board_ID(primary key)</li>
+  	<li>description</li>
+  	<li>user_ID  (foreign)</li>
+  </ul>
+  <h5>Item</h5>
+  <ul>
+  	<li>user_ID(primary key)</li>
+  	<li>description</li>
+  	<li>status(0 for to-do, 1 for in-progress, 2 for done)</li>
+  	<li>user_ID  (foreign)</li>
+  	<li>board_ID  (foreign)</li>
+  	<li>expected pomodoros</li>
+  	<li>completed</li>
+  </ul>
+  <p><a href="https://docs.google.com/document/d/1vRnrtJk4kXGZbjHAaRA-hYSZ-I9uEMUC90QcY0ukOOo/edit#">Link to gdoc</a></p>
+</div>
+<div class="api">
+	<h2>API list</h2>
+	<p><a href="https://docs.google.com/spreadsheets/d/1lbLi7yiMfK8u6DxQ7yahs3r-FA3VVsVVSsY_xgyxb34/edit?usp=sharing">Check here</a> to see all the APIs we have.</p>
+</div>
 </body>
 </html>

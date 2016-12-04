@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>DB schema and APIs</title>
+</head>
+<body>
+<h1>COMP 426 Final Project</h1>
+<div class="db-schema">
+  <h2>Database schema</h2>
+  <h4>Schema</h2>
+  <h5>User</h5>
+  <ul>
+    <li>user_ID(primary key) --- INTEGER(AUTO INCREMENT)</li>
+    <li>username --- TEXT</li>
+    <li>email --- TEXT</li>
+    <li>password --- TEXT</li>
+  </ul>
+  <h5>Board</h5>
+  <ul>
+    <li>board_ID(primary key) --- INTEGER(AUTO INCREMENT)</li>
+    <li>description --- TEXT</li>
+    <li>user_ID  (foreign key to User) --- INTEGER</li>
+  </ul>
+  <h5>Item</h5>
+  <ul>
+    <li>user_ID(primary key) --- INTEGER(AUTO INCREMENT)</li>
+    <li>description --- TEXT</li>
+    <li>status(0 for to-do, 1 for in-progress, 2 for done) --- INTEGER</li>
+    <li>user_ID  (foreign to User) --- INTEGER</li>
+    <li>board_ID  (foreign to Board) --- INTEGER</li>
+    <li>expected pomodoros --- INTEGER</li>
+    <li>completed --- INTEGER</li>
+  </ul>
+  <p><a href="https://docs.google.com/document/d/1vRnrtJk4kXGZbjHAaRA-hYSZ-I9uEMUC90QcY0ukOOo/edit#">Link to gdoc</a></p>
+</div>
+<div class="api">
+  <h2>API list</h2>
+  <p><a href="https://docs.google.com/spreadsheets/d/1lbLi7yiMfK8u6DxQ7yahs3r-FA3VVsVVSsY_xgyxb34/edit?usp=sharing">Check here</a> to see all the APIs we have.</p>
+</div>
+</body>
+</html>
