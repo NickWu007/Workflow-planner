@@ -7,8 +7,9 @@ $(document).ready(function() {
     var item = prompt("Add an item", "Take out trash");
 
     if (item != false) {
-      var markup = "<li class='list-group-item'>" + item + "<a href='#' class='close' aria-hidden='true'>&times;</a></li>";
+      var markup = "<li class='list-group-item draggable'>" + item + "<a href='#' class='close' aria-hidden='true'>&times;</a></li>";
       $("." + id).append(markup);
+      $(".draggable").draggable();
     }
   });
 
