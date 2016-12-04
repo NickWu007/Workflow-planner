@@ -22,7 +22,7 @@ class User {
   public static function findByID($id) {
     $mysqli = User::connect();
     
-    $result = $mysqli->query("select * from User where id = \"" . $id . "\"");
+    $result = $mysqli->query("select * from User where id = " . $id );
     if ($result) {
       if ($result->num_rows == 0){
         return null;
@@ -99,7 +99,7 @@ class User {
   
   public function delete() {
     $mysqli = User::connect();
-    $result = $mysqli->query("delete FROM User where id = \"$this->id\"");
+    $result = $mysqli->query("delete FROM User where id = " . $this->id);
     return $result;
   }
 }
