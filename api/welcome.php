@@ -2,11 +2,13 @@
 session_start();
 
 require_once('authenticate.php');
+require_once('User.php');
 
 header("Access-Control-Allow-Origin: *");
-header("HTTP/1.1 300 Successfuly logged in");
-
-/* Add code here to return the user id of the person that logged in */
-
+header("HTTP/1.1 200 Successfuly logged in");
+$username = $_SESSION['username'];
+$user = User::findByName($username);
+$output = $user->getID();
+print(json_encode($output));
 exit();
 ?>
