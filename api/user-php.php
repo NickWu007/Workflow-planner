@@ -9,7 +9,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
      $path_components = explode('/', $_SERVER['PATH_INFO']);
 
      if ((count($path_components) >= 2) && ($path_components[1] != "")) {
-	    require_once('authenticate.php');
+	require_once('authenticate.php');
         $user_id = intval($path_components[1]);
         $user = User::findByID($user_id);
         if(is_null($user)) {
@@ -20,11 +20,12 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
         if($_SESSION['username'] != $user->getName()) {
             header('HTTP/1.1 401 Unauthorized');
-  	    exit();
+  	        exit();
         }
          
         $post = json_decode(file_get_contents("php://input"), true);
-        $password = $post['password'];
+        $unsalted_password = $post['password'];
+        $password = md5($user->getName() . "-salt-workflow" . $unsalted_password);
         $result = $user->setPassword($password); 
         if(!$result) {
             header("HTTP/1.1 500 Intenal Server Error");
@@ -41,15 +42,15 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         $post = json_decode(file_get_contents("php://input"), true);
         $username = $post['username'];
         $email = $post['email'];
-        $password = $post['password'];
-        if (!is_null($password) && !is_null($username) && !is_null($email)) {
+        $unsalted_password = $post['password'];
+        if (!is_null($unsalted_password) && !is_null($username) && !is_null($email)) {
             $user = User::findByName($username);
             if (!is_null($user)) {
                 header("HTTP/1.1 400 Bad Request");
                 print("User already exists");
                 exit();
             }
-            
+            $password = md5($username . "-salt-workflow" . $unsalted_password);
             $new_user = User::create($username, $email, $password);
             if (is_null($new_user)) {
                 header("HTTP/1.1 500 Intenal Server Error");
