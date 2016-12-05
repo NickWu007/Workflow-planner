@@ -1,14 +1,26 @@
 $(document).ready(function() {
 
   $(".add-item").on("click", function(event) {
+    var id, item, markup;
 
-    var id = event.target.id;
+    if ($(this).hasClass("to-do-list")) {
+      id = "to-do-list";
+    } else if ($(this).hasClass("do-today-list")) {
+      id = "do-today-list";
+    } else if ($(this).hasClass("in-progress-list")) {
+      id = "in-progress-list";
+    } else if ($(this).hasClass("done-list")) {
+      id = "done-list";
+    } else {
+      alert('error');
+      return;
+    }
 
-    var item = prompt("Add an item", "Take out trash");
+    item = prompt("Add an item", "Take out trash");
 
     if (item != false) {
-      var markup = "<li class='list-group-item draggable'>" + item + "<a href='#' class='close' aria-hidden='true'>&times;</a></li>";
-      $("." + id).append(markup);
+      markup = "<li class='list-group-item draggable'>" + item + "<a href='#' class='close' aria-hidden='true'>&times;</a></li>";
+      $("#" + id).append(markup);
       $(".draggable").draggable();
     }
   });
