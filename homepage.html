@@ -1,40 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="utf-8">
+    <<meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Workflow Planner</title>
 
-    <!-- Bootstrap -->
+    <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-<<<<<<< HEAD
-    <!-- Custom styles for this template -->
-    <link href="css/homepage.css" type='text/css' rel="stylesheet">
 
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-=======
+    <!-- jQuery first, then Tether, then Bootstrap JS. -->
+    <script   src="https://code.jquery.com/jquery-1.12.4.js"   integrity="sha256-Qw82+bXyGq6MydymqBxNPYTaUXXq7c8v3CwiYwLLNXU="   crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
     <!-- Custom styles for this template -->
     <link href="css/homepage.css" type='text/css' rel="stylesheet">
-
-    <!-- Custom styles for this template -->
     <script src="js/homepage.js"></script>
 
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
->>>>>>> master
   </head>
   <body>
     <nav class="navbar navbar-default">
@@ -64,39 +48,39 @@
         <div class="row fill">
             <div class="col-md-3 well fill ice">
               <div class="header text-center">
-                <button type="button" class="btn btn-default btn-sm add-item pull-left" id="to-do-list">
-                  <span class="glyphicon glyphicon-plus"></span>
+                <button type="button" class="btn btn-default btn-sm add-item pull-left to-do-list">
+                  <span class="glyphicon glyphicon-plus to-do-list"></span>
                 </button>To Do
               </div>
-              <ul class="list-group to-do-list">
+              <ul class="list-group to-do-list"  id="to-do-list">
                 <li class="list-group-item draggable">Reading for next week<a href='#' class='close' aria-hidden='true'>&times;</a></li>
               </ul>
             </div>
             <div class="col-md-3 well fill today">
               <div class="header text-center">
-                <button type="button" class="btn btn-default btn-sm add-item pull-left" id="do-today-list">
-                  <span class="glyphicon glyphicon-plus"></span>
+                <button type="button" class="btn btn-default btn-sm add-item pull-left do-today-list">
+                  <span class="glyphicon glyphicon-plus do-today-list"></span>
                 </button>Do Today
               </div>
-              <ul class="list-group do-today-list">
+              <ul class="list-group do-today-list"  id="do-today-list">
               </ul>
             </div>
             <div class="col-md-3 well fill">
               <div class="header text-center">
-                <button type="button" class="btn btn-default btn-sm add-item pull-left" id="in-progress-list">
-                  <span class="glyphicon glyphicon-plus"></span>
+                <button type="button" class="btn btn-default btn-sm add-item pull-left in-progress-list">
+                  <span class="glyphicon glyphicon-plus in-progress-list"></span>
                 </button>In Progress
               </div>
-              <ul class="list-group in-progress-list">
+              <ul class="list-group in-progress-list"  id="in-progress-list">
               </ul>
             </div>
             <div class="col-md-3 well fill success">
               <div class="header text-center">
-                <button type="button" class="btn btn-default btn-sm add-item pull-left" id="done-list">
-                  <span class="glyphicon glyphicon-plus"></span>
+                <button type="button" class="btn btn-default btn-sm add-item pull-left done-list">
+                  <span class="glyphicon glyphicon-plus done-list"></span>
                 </button>Done
               </div>
-              <ul class="list-group done-list">
+              <ul class="list-group done-list" id="done-list">
               </ul>
             </div>
         </div>
