@@ -1,26 +1,27 @@
 <?php
 session_start();
+require_once('User.php');
 
 header("Access-Control-Allow-Origin: *");
 
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
     
-    function check_password($username, $password) {
-        $fd = fopen('hidden/passwords.txt', 'r');
-        while ($next_line = fgets($fd)) {
-            list($uname, $usalt, $uhash) = explode(' ', trim($next_line));
-            if ($uname == $username) {
-                if (md5($usalt . $password) == $uhash) {
-	               fclose($fd);
-	               return true;
-                }
-            }
+    function check_password($username, $unsalted_password) {
+        $usalt = ($username . "-salt-workflow");
+        $user = User::findByName($username);
+        if(is_null($user)) {
+            header("HTTP/1.1 404 Bad Login");
+            print("User doesn't exist");
+            exit();
         }
         
-    fclose($fd);
-    return false;
+        if (md5($usalt . $unsalted_password) == $user->getPassword()) {
+           return true;
+        } 
+        
+        return false;
     }
-     
+            
     $post = json_decode(file_get_contents("php://input"), true);
     $username = $post['username'];
     $password = $post['password'];
@@ -32,9 +33,10 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         $_SESSION['authsalt'] = time();
         $auth_cookie_val = md5($_SESSION['username'] . $_SERVER['REMOTE_ADDR'] . $_SESSION['authsalt']);
         setcookie('workflow_auth', $auth_cookie_val, 0, '/Courses/comp426-f16/users/gregmcd', 'wwwp.cs.unc.edu', true);
-
-        /* Add code here to return user id of person that logged in */
-        
+	header("HTTP/1.1 300 Good Login");
+	$user = User::findByName($username);
+	$output = $user->getID();
+	print(json_encode($output));
         exit();
     }
 
