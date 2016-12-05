@@ -33,7 +33,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         $_SESSION['authsalt'] = time();
         $auth_cookie_val = md5($_SESSION['username'] . $_SERVER['REMOTE_ADDR'] . $_SESSION['authsalt']);
         setcookie('workflow_auth', $auth_cookie_val, 0, '/Courses/comp426-f16/users/gregmcd', 'wwwp.cs.unc.edu', true);
-	header("HTTP/1.1 300 Good Login");
+	header("HTTP/1.1 200 Good Login");
 	$user = User::findByName($username);
 	$output = $user->getID();
 	print(json_encode($output));
