@@ -33,24 +33,25 @@
     <div class='container' >
       <div class='well'>
         <h1>Welcome Back!</h1>
+        <div class="error"></div>
         <form class="form-horizontal" id="login-form">
           <div class="form-group">
             <div class="col-md-12  inputGroupContainer">
               <div class="input-group"> <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                <input  name="username" placeholder="Username" class="form-control"  type="text">
+                <input id="username" name="username" placeholder="Username" class="form-control"  type="text">
               </div>
             </div>
           </div>
           <div class="form-group">
             <div class="col-md-12  inputGroupContainer">
               <div class="input-group"> <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-                <input class="form-control" id="userPw" type="password" placeholder="Password">
+                <input class="form-control" id="password" type="password" placeholder="Password">
               </div>
             </div>
           </div>
           <div class='btn-group btn-group-justified' role='group'>
             <div class='btn-group' role='group'>
-              <button type='button' id='log-in' class='btn btn-default active'><a href="homepage.html" class="btn">Login</a></button>
+              <button type='button' id='log-in' class='btn btn-default active'>Login</button>
             </div>
             <div class='btn-group' role='group'>
               <button type='button' id='sign-up' class='btn btn-default'><a href="signup.html" class="btn">Sign Up</a></button>

@@ -11,7 +11,7 @@ $(document).ready(function() {
     $("#log-in").addClass("active");
     $("#sign-up").removeClass("active");
 
-    $('.error').val("");
+    $('.error').text("");
     var username = $('#username').val();
     var password = $('#password').val();
     $.ajax("http://wwwp.cs.unc.edu/Courses/comp426-f16/users/junaowu/src/api/login.php", 
