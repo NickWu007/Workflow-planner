@@ -51,5 +51,48 @@ $(document).ready(function() {
               }
            },
           }
-      })
+    });
+
+    $('#sign-up').click(function() {
+        console.log('trying to sign up');
+
+        var username = $('.username').val();
+        var email  = $('.email').val();
+        var password = $('.password').val();
+
+        console.log('username: ' + username);
+        console.log('email: ' + email);
+        console.log('password: ' + password);
+
+        if (username.length === 0 || email.length === 0 || password.length === 0) {
+            return;
+        }
+
+        $.ajax({
+            url: "https://wwwp.cs.unc.edu/Courses/comp426-f16/users/gregmcd/user-php.php", 
+            type: "POST",
+            dataType: "json",
+            data: JSON.stringify({
+                "username" : username,
+                "email" : email,
+                "password" : password
+            }),
+            success: function() {
+                alert("register successful. Please enter your info in login page.");
+                location.assign("login.html");
+            },
+            error : function(xhr, status){
+                console.log(xhr.status);
+                console.log(xhr.responseText);
+
+                if (xhr.status == 400) {
+                  $('.error').text("Username already taken. Please try again.");
+                } else {
+                  $('.error').text("Unexpected error. Please try again.");
+                }
+                $('.error').css("color", "red");
+            }
+        });
+
+    });
 });
