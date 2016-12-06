@@ -60,10 +60,6 @@ $(document).ready(function() {
         var email  = $('.email').val();
         var password = $('.password').val();
 
-        console.log('username: ' + username);
-        console.log('email: ' + email);
-        console.log('password: ' + password);
-
         if (username.length === 0 || email.length === 0 || password.length === 0) {
             return;
         }
