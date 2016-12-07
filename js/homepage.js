@@ -1,12 +1,60 @@
+var user_ID;
+var board_IDs = [];
+var item_IDs = [];
+
+// Helper function get user id from the url.
+// Creditted to: https://css-tricks.com/snippets/javascript/get-url-variables/
+function getQueryVariable(variable) {
+  var query = window.location.search.substring(1);
+  var vars = query.split("&");
+  for (var i=0;i<vars.length;i++) {
+    var pair = vars[i].split("=");
+    if(pair[0] == variable){return pair[1];}
+  }
+  return(false);
+}
+
+function retrieveBoardId() {
+  url  = "https://wwwp.cs.unc.edu/Courses/comp426-f16/users/gregmcd/board-php.php?user_id=" + user_ID;
+  $.ajax({
+      url: url, 
+      type: "GET",
+      dataType: 'json',
+      xhrFields: {
+        withCredentials: true
+      },
+      crossDomain: true,
+      success: function(data, status, xhr) {
+        alert("board_ID retireve successful.");
+        board_IDs = [];
+        for (var i = 0; i < data.length; i++) {
+          board_IDs.push(parseInt(data[0]));
+        }
+      },
+      error : function(xhr, status){
+        if (xhr.status == 401) {
+          alert("Username unauthorized. Please go back tot login page");
+        } else if (xhr.status == 404) {
+          alert("User not found.");
+        } else {
+          alert("Unexpected error. Please try again.");
+        }
+        window.location.assign('login.html');
+      }
+    });
+
+}
+
 $(document).ready(function() {
 
   // Fill columns with items
   // populateLists();
 
   // Get user ID
+  user_ID = getQueryVariable("user");
 
   // Get board ID
-
+  retrieveBoardId();
 
   // Function for adding items
   $(document).on('click', '.add-item', addItem);
