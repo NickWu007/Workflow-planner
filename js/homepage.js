@@ -28,8 +28,9 @@ function retrieveBoardId() {
         alert("board_ID retireve successful.");
         board_IDs = [];
         for (var i = 0; i < data.length; i++) {
-          board_IDs.push(parseInt(data[0]));
+          board_IDs.push(parseInt(data[i]));
         }
+        populateBoards(board_IDs);
       },
       error : function(xhr, status){
         if (xhr.status == 401) {
@@ -42,7 +43,89 @@ function retrieveBoardId() {
         window.location.assign('login.html');
       }
     });
+}
 
+function populateBoards(board_IDs) {
+  board_IDs.forEach(function(board_ID) {
+    $.ajax({
+      url: "https://wwwp.cs.unc.edu/Courses/comp426-f16/users/gregmcd/board-php.php/" + board_ID, 
+      type: "GET",
+      dataType: 'json',
+      async: false,
+      xhrFields: {
+        withCredentials: true
+      },
+      crossDomain: true,
+      success: function(data, status, xhr) {
+        console.log(data);
+        $('.boards').append($("<option>").attr('value',board_ID).text(data.description));
+      },
+      error : function(xhr, status){
+        console.log(xhr.status);
+        console.log(xhr.responseText);
+      }
+    });
+  });
+
+  $('.boards').val(board_IDs[0]);
+  console.log($('.boards option:selected').val());
+  $('.boards').change(retrieveItems);
+  retrieveItems();
+}
+
+function retrieveItems() {
+  var board_ID = $('.boards option:selected').val();
+  url  = "https://wwwp.cs.unc.edu/Courses/comp426-f16/users/gregmcd/item-php.php?user_id=" + user_ID + "&board_id="  + board_ID;
+  $.ajax({
+      url: url, 
+      type: "GET",
+      dataType: 'json',
+      xhrFields: {
+        withCredentials: true
+      },
+      crossDomain: true,
+      success: function(data, status, xhr) {
+        alert("item_ID retireve successful.");
+        item_IDs = [];
+        for (var i = 0; i < data.length; i++) {
+          console.log('item_id: ' + parseInt(data[i]));
+          item_IDs.push(parseInt(data[i]));
+        }
+        populateItems(item_IDs);
+      },
+      error : function(xhr, status){
+        if (xhr.status == 401) {
+          alert("Username unauthorized. Please go back tot login page");
+        } else if (xhr.status == 404) {
+          alert("User not found.");
+        } else {
+          alert("Unexpected error. Please try again.");
+        }
+        window.location.assign('login.html');
+      }
+    });
+}
+
+function populateItems(item_IDs) {
+  item_IDs.forEach(function(item_ID) {
+    $.ajax({
+      url: "https://wwwp.cs.unc.edu/Courses/comp426-f16/users/gregmcd/item-php.php/" + item_ID, 
+      type: "GET",
+      dataType: 'json',
+      xhrFields: {
+        withCredentials: true
+      },
+      crossDomain: true,
+      success: function(data, status, xhr) {
+        console.log(data);
+        
+      },
+      error : function(xhr, status){
+        console.log(xhr.status);
+        console.log(xhr.responseText);
+      }
+    });
+  });
 }
 
 $(document).ready(function() {
