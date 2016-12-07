@@ -215,6 +215,7 @@ var addItem = function() {
         "<a href='#' class='close' aria-hidden='true'>&times;</a></div>";
         $("#to-do-list").append(markup);
         $(".draggable").draggable();
+        $('.list-group-item').click(timeable);
 /**    },
     error: function (xhr, status) {
       console.log(xhr.status);

@@ -48,14 +48,7 @@ function setup_ui() {
 		}
 	});
 
-	$('.list-group-item').click(function() {
-		$('.target').removeClass('bg-warning');
-		$('.target-des').text($(this).text());
-		$('.target-footer').text('Click on the item above to un-select it.');
-
-		// TODO: integrate with the rest of homepage
-		working_task = 1;
-	});
+	$('.list-group-item').click(timeable);
 
 	$('.target-des').click(function() {
 		if (working_task < 0) return;
@@ -119,6 +112,15 @@ function get_time_difference(earlierDate,laterDate) {
 
    return oDiff;
 
+}
+
+function timeable() {
+	$('.target').removeClass('bg-warning');
+	$('.target-des').text($(this).text());
+	$('.target-footer').text('Click on the item above to un-select it.');
+
+	// TODO: integrate with the rest of homepage
+	working_task = 1;
 }
 
 function update_time() {
