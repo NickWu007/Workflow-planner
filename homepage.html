@@ -18,6 +18,7 @@
 
     <!-- Custom styles for this template -->
     <link href="css/homepage.css" type='text/css' rel="stylesheet">
+
     <script src="js/homepage.js"></script>
 
   </head>
@@ -52,41 +53,37 @@
         </div>
         <div class="row fill">
             <div class="col-md-3 well fill ice">
-              <div class="header text-center">
-                <button type="button" class="btn btn-default btn-sm add-item pull-left to-do-list">
-                  <span class="glyphicon glyphicon-plus to-do-list"></span>
-                </button>To Do
-              </div>
-              <ul class="list-group to-do-list"  id="to-do-list">
-                <li class="list-group-item draggable">Reading for next week<a href='#' class='close' aria-hidden='true'>&times;</a></li>
-              </ul>
+              <h3 class="text-center">Add Task</h3>
+              <form class="add-new">
+                <div class="form-group row">
+                  <input type="text" class="form-control" id="description" placeholder="Add new task">
+                </div>
+                <div class="form-group row">
+                  <label for="pomodoros" class="col-xs-4 col-form-label">Pomodoros</label>
+                  <div class="col-xs-4">
+                    <input class="form-control" type="number" value="5" id="pomodoros">
+                  </div>
+                  <div class="col-xs-4">
+                    <button type="button" class="btn btn-primary pull-right add-item">Add Item</button></span>
+                  </div>
+                </div>
+              </form>
             </div>
             <div class="col-md-3 well fill today">
-              <div class="header text-center">
-                <button type="button" class="btn btn-default btn-sm add-item pull-left do-today-list">
-                  <span class="glyphicon glyphicon-plus do-today-list"></span>
-                </button>Do Today
-              </div>
-              <ul class="list-group do-today-list"  id="do-today-list">
-              </ul>
+              <h3 class="text-center">To Do</h3>
+                <div class="list-group to-do-list"  id="to-do-list">
+                  <div class="list-group-item draggable">Reading for next week<a href='#' class='close' aria-hidden='true'>&times;</a></div>
+                </div>
             </div>
             <div class="col-md-3 well fill">
-              <div class="header text-center">
-                <button type="button" class="btn btn-default btn-sm add-item pull-left in-progress-list">
-                  <span class="glyphicon glyphicon-plus in-progress-list"></span>
-                </button>In Progress
+              <h3 class="text-center">In Progress</h3>
+              <div class="list-group in-progress-list"  id="in-progress-list">
               </div>
-              <ul class="list-group in-progress-list"  id="in-progress-list">
-              </ul>
             </div>
             <div class="col-md-3 well fill success">
-              <div class="header text-center">
-                <button type="button" class="btn btn-default btn-sm add-item pull-left done-list">
-                  <span class="glyphicon glyphicon-plus done-list"></span>
-                </button>Done
+              <h3 class="text-center">Done</h3>
+              <div class="list-group done-list" id="done-list">
               </div>
-              <ul class="list-group done-list" id="done-list">
-              </ul>
             </div>
         </div>
     </div>
