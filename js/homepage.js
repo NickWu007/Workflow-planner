@@ -25,7 +25,7 @@ function retrieveBoardId() {
       },
       crossDomain: true,
       success: function(data, status, xhr) {
-        alert("board_ID retireve successful.");
+        // alert("board_ID retireve successful.");
         board_IDs = [];
         for (var i = 0; i < data.length; i++) {
           board_IDs.push(parseInt(data[i]));
@@ -57,7 +57,6 @@ function populateBoards(board_IDs) {
       },
       crossDomain: true,
       success: function(data, status, xhr) {
-        console.log(data);
         $('.boards').append($("<option>").attr('value',board_ID).text(data.description));
       },
       error : function(xhr, status){
@@ -68,7 +67,6 @@ function populateBoards(board_IDs) {
   });
 
   $('.boards').val(board_IDs[0]);
-  console.log($('.boards option:selected').val());
   $('.boards').change(retrieveItems);
   retrieveItems();
 }
@@ -85,10 +83,9 @@ function retrieveItems() {
       },
       crossDomain: true,
       success: function(data, status, xhr) {
-        alert("item_ID retireve successful.");
+        // alert("item_ID retireve successful.");
         item_IDs = [];
         for (var i = 0; i < data.length; i++) {
-          console.log('item_id: ' + parseInt(data[i]));
           item_IDs.push(parseInt(data[i]));
         }
         populateItems(item_IDs);
@@ -117,8 +114,13 @@ function populateItems(item_IDs) {
       },
       crossDomain: true,
       success: function(data, status, xhr) {
-        console.log(data);
-        
+        markup = "<div class='list-group-item item draggable'>" + 
+          data.description  + 
+          " ("  +
+          data.completed + "/" + data.pomodoros + ")"  +
+          "<a href='#' class='close' aria-hidden='true'>&times;</a></div>";
+        $("#to-do-list").append(markup);
+        $(".draggable").draggable();
       },
       error : function(xhr, status){
         console.log(xhr.status);
@@ -190,7 +192,10 @@ var addItem = function() {
     //   success: function (data, status, xhr) {
 
         if (description != false) {
-          markup = "<div class='list-group-item draggable'>" + description + "<a href='#' class='close' aria-hidden='true'>&times;</a></div>";
+          markup = "<div class='list-group-item draggable item'>" + 
+          description  + 
+          " (0/" + pomodoros + ")"  +
+          "<a href='#' class='close' aria-hidden='true'>&times;</a></div>";
           $("#to-do-list").append(markup);
           $(".draggable").draggable();
         }
