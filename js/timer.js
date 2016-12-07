@@ -33,7 +33,7 @@ function setup_ui() {
 		var state = $(this).text();
 		console.log('state = ' + state);
 
-		if (state == "Start") {			
+		if (state == "Start") {
 			$(this).removeClass('btn-success');
 			$(this).addClass('btn-danger');
 			start_work();
@@ -48,7 +48,7 @@ function setup_ui() {
 		}
 	});
 
-	$('.task').click(function() {
+	$('.list-group-item').click(function() {
 		$('.target').removeClass('bg-warning');
 		$('.target-des').text($(this).text());
 		$('.target-footer').text('Click on the item above to un-select it.');
@@ -59,7 +59,7 @@ function setup_ui() {
 
 	$('.target-des').click(function() {
 		if (working_task < 0) return;
-		
+
 		$('.target').addClass('bg-warning');
 		$('.target-des').text('No task selected');
 		$('.target-footer').text('Click on a task on the board to select it.');
@@ -82,7 +82,7 @@ function start_work() {
 
 function start_break() {
 	start_time = new Date();
-	
+
 	if (pomodoro_count % 4 === 0) {
 		duration = 15;
 		$('#minutes').text("15");
@@ -118,7 +118,7 @@ function get_time_difference(earlierDate,laterDate) {
    oDiff.seconds = Math.floor(nTotalDiff/1000);
 
    return oDiff;
- 
+
 }
 
 function update_time() {

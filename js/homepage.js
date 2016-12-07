@@ -49,7 +49,7 @@ function retrieveBoardId() {
 function populateBoards(board_IDs) {
   board_IDs.forEach(function(board_ID) {
     $.ajax({
-      url: "https://wwwp.cs.unc.edu/Courses/comp426-f16/users/gregmcd/board-php.php/" + board_ID, 
+      url: "https://wwwp.cs.unc.edu/Courses/comp426-f16/users/gregmcd/board-php.php/" + board_ID,
       type: "GET",
       dataType: 'json',
       async: false,
@@ -76,7 +76,7 @@ function retrieveItems() {
   board_ID = $('.boards option:selected').val();
   url  = "https://wwwp.cs.unc.edu/Courses/comp426-f16/users/gregmcd/item-php.php?user_id=" + user_ID + "&board_id="  + board_ID;
   $.ajax({
-      url: url, 
+      url: url,
       type: "GET",
       dataType: 'json',
       xhrFields: {
@@ -94,7 +94,7 @@ function retrieveItems() {
         } else {
           clearBoard();
         }
-        
+
       },
       error : function(xhr, status){
         if (xhr.status == 401) {
@@ -116,7 +116,7 @@ function clearBoard() {
 function populateItems(item_IDs) {
   item_IDs.forEach(function(item_ID) {
     $.ajax({
-      url: "https://wwwp.cs.unc.edu/Courses/comp426-f16/users/gregmcd/item-php.php/" + item_ID, 
+      url: "https://wwwp.cs.unc.edu/Courses/comp426-f16/users/gregmcd/item-php.php/" + item_ID,
       type: "GET",
       dataType: 'json',
       xhrFields: {
@@ -124,8 +124,8 @@ function populateItems(item_IDs) {
       },
       crossDomain: true,
       success: function(data, status, xhr) {
-        markup = "<div class='list-group-item item draggable' id='" + item_ID + "'>" + 
-          data.description  + 
+        markup = "<div class='list-group-item item draggable' id='" + item_ID + "'>" +
+          data.description  +
           " ("  +
           data.completed + "/" + data.pomodoros + ")"  +
           "<a href='#' class='close' aria-hidden='true'>&times;</a></div>";
@@ -166,7 +166,7 @@ var deleteItem = function() {
   var item_ID = $(this).parent().attr("id");
   console.log(item_ID);
   $.ajax({
-    url: "https://wwwp.cs.unc.edu/Courses/comp426-f16/users/gregmcd/item-php.php/" + item_ID + "?action=delete", 
+    url: "https://wwwp.cs.unc.edu/Courses/comp426-f16/users/gregmcd/item-php.php/" + item_ID + "?action=delete",
     type: "GET",
     xhrFields: {
       withCredentials: true
@@ -192,8 +192,8 @@ var addItem = function() {
   description = document.getElementById("description").value;
   if (description.length === 0) return;
   pomodoros = document.getElementById("pomodoros").value;
-  board_ID = $('.boards option:selected').val();
-  // Send AJAX call, update db
+  //board_ID = $('.boards option:selected').val();
+  /** Send AJAX call, update db
   $.ajax("https://wwwp.cs.unc.edu/Courses/comp426-f16/users/gregmcd/item-php.php/", {
     type: "POST",
     dataType: 'json',
@@ -208,43 +208,17 @@ var addItem = function() {
       "board_ID" : board_ID,
       "pomodoros" : pomodoros,
       "completed" : 0}),
-    success: function (data, status, xhr) {
-      markup = "<div class='list-group-item draggable item' id='" + data.item_ID + "'>"  + 
-        description  + 
+    success: function (data, status, xhr) { */
+      markup = "<div class='list-group-item draggable item'>"  +
+        description  +
         " (0/" + pomodoros + ")"  +
         "<a href='#' class='close' aria-hidden='true'>&times;</a></div>";
         $("#to-do-list").append(markup);
         $(".draggable").draggable();
-    },
+/**    },
     error: function (xhr, status) {
       console.log(xhr.status);
       console.log(xhr.responseText);
     }
-  });
+  }); */
 };
-
-
-/** populateLists - Populates initial lists when logged on
-var populateLists = function() {
-
-  // Send AJAX call
-  $.ajax("http://wwwp.cs.unc.edu/Courses/comp426-f16/users/junaowu/src/api/item-php.php", {
-    type: ,
-    dataType: ,
-    success: function (data, status, xhr) {
-
-
-    },
-    error: function (xhr, status) {
-      alert('Error populating list');
-    }
-  });
-
-};
-
-
-// updateItem - updates item if moved or completed
-var updateItem = function {
-
-}
-*/
