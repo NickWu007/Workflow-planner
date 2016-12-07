@@ -1,8 +1,9 @@
 <?php
+header("Access-Control-Allow-Origin: " . $_SERVER['HTTP_ORIGIN'] . "");
+header("Access-Control-Allow-Credentials : true");
 session_start();
 require_once('User.php');
 
-header("Access-Control-Allow-Origin: *");
 
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
     
@@ -54,5 +55,4 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 header("HTTP/1.1 400 Bad Request");
 print("Format not recognized");
 exit();
-
 ?>

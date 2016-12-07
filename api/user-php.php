@@ -1,8 +1,8 @@
 <?php
+header("Access-Control-Allow-Origin: " . $_SERVER['HTTP_ORIGIN'] . "");
+header("Access-Control-Allow-Credentials : true");
 session_start();
-
 require_once('User.php');
-header("Access-Control-Allow-Origin: *");
 
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
      /* This is an update, specifically password change */
