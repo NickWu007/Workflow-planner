@@ -17,7 +17,7 @@ function getQueryVariable(variable) {
 function retrieveBoardId() {
   url  = "https://wwwp.cs.unc.edu/Courses/comp426-f16/users/gregmcd/board-php.php?user_id=" + user_ID;
   $.ajax({
-      url: url, 
+      url: url,
       type: "GET",
       dataType: 'json',
       xhrFields: {
@@ -33,7 +33,7 @@ function retrieveBoardId() {
       },
       error : function(xhr, status){
         if (xhr.status == 401) {
-          alert("Username unauthorized. Please go back tot login page");
+          alert("Username unauthorized. Please go back to login page");
         } else if (xhr.status == 404) {
           alert("User not found.");
         } else {
@@ -83,25 +83,14 @@ var deleteItem = function() {
 // TO DO: Add to DB
 var addItem = function() {
 
-  var id, status, description, markup, user_ID, board_ID, pomodoros, completed;
+  var id, status, description, markup, user, board_ID, pomodoros, completed;
 
-  if ($(this).hasClass("to-do-list")) {
-    id = "to-do-list";
-    status = 0;
-  } else if ($(this).hasClass("do-today-list")) {
-    id = "do-today-list";
-  } else if ($(this).hasClass("in-progress-list")) {
-    id = "in-progress-list"
-    status = 1;
-  } else if ($(this).hasClass("done-list")) {
-    id = "done-list";
-    status = 2;
-  } else {
-    alert('error');
-    return;
-  }
+  description = document.getElementById("description").value;
+  status = "0";
+  //user = user_ID.toString();
+  pomodoros = document.getElementById("pomodoros").value;
+  completed = "0";
 
-  description = prompt("Add an item", "Take out trash");
 
   if (description != false) {
     // Send AJAX call
@@ -111,15 +100,15 @@ var addItem = function() {
     //   data: JSON.stringify({
     //     "description" : description,
     //     "status" : status,
-    //     "user_ID" : 1,
+    //     "user_ID" : user,
     //     "board_ID" : 1,
     //     "pomodoros" : 0,
     //     "completed" : 0}),
     //   success: function (data, status, xhr) {
 
         if (description != false) {
-          markup = "<li class='list-group-item draggable'>" + description + "<a href='#' class='close' aria-hidden='true'>&times;</a></li>";
-          $("#" + id).append(markup);
+          markup = "<div class='list-group-item draggable'>" + description + "<a href='#' class='close' aria-hidden='true'>&times;</a></div>";
+          $("#to-do-list").append(markup);
           $(".draggable").draggable();
         }
     //   },
