@@ -116,10 +116,11 @@ function get_time_difference(earlierDate,laterDate) {
 
 function timeable() {
 	$('.target').removeClass('bg-warning');
-	$('.target-des').text($(this).text());
+	// Remove last character (x) which is used to delete tasks
+	var str = $(this).text();
+	$('.target-des').text(str.substring(0,str.length - 1));
 	$('.target-footer').text('Click on the item above to un-select it.');
 
-	// TODO: integrate with the rest of homepage
 	working_task = 1;
 }
 
