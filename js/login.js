@@ -31,6 +31,7 @@ $(document).ready(function() {
     $.ajax({
       url: "https://wwwp.cs.unc.edu/Courses/comp426-f16/users/gregmcd/login.php", 
       type: "POST",
+      crossDomain: true,
       dataType: "json",
       data: JSON.stringify({
         "username" : username,
@@ -38,7 +39,6 @@ $(document).ready(function() {
       }),
       success: function(data, status, xhr) {
         alert("login successful.");
-        console.log(data);
         location.assign("homepage.html?user=" + data);
       },
       error : function(xhr, status){
