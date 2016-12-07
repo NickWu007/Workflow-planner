@@ -51,10 +51,10 @@ $(document).ready(function() {
   // populateLists();
 
   // Get user ID
-  user_ID = getQueryVariable("user");
+  //user_ID = getQueryVariable("user");
 
   // Get board ID
-  retrieveBoardId();
+  //retrieveBoardId();
 
   // Function for adding items
   $(document).on('click', '.add-item', addItem);
