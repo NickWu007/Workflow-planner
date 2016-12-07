@@ -190,9 +190,11 @@ var addItem = function() {
   if (description.length === 0) return;
   pomodoros = document.getElementById("pomodoros").value;
   board_ID = $('.boards option:selected').val();
-  completed = 0;
-
   // Send AJAX call, update db
+  console.log(description);
+  console.log(user_ID);
+  console.log(board_ID);
+  console.log(pomodoros);
   $.ajax("https://wwwp.cs.unc.edu/Courses/comp426-f16/users/gregmcd/item-php.php/", {
     type: "POST",
     dataType: 'json',
@@ -206,16 +208,16 @@ var addItem = function() {
       "user_ID" : user_ID,
       "board_ID" : board_ID,
       "pomodoros" : pomodoros,
-      "completed" : completed}),
+      "completed" : 0}),
     success: function (data, status, xhr) {
-      markup = "<div class='list-group-item draggable item' id='" + data.item_ID + "'>" +
+      markup = "<div class='list-group-item draggable item' id=" + data.item_ID + ">"  +
         description  +
-        " (" + completed + "/" + pomodoros + ")"  +
+        " (0/" + pomodoros + ")"  +
         "<a href='#' class='close' aria-hidden='true'>&times;</a></div>";
         $("#to-do-list").append(markup);
         $(".draggable").draggable();
         $('.list-group-item').click(timeable);
-   },
+    },
     error: function (xhr, status) {
       console.log(xhr.status);
       console.log(xhr.responseText);
