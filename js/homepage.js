@@ -142,14 +142,11 @@ function populateItems(item_IDs) {
 
 $(document).ready(function() {
 
-  // Fill columns with items
-  // populateLists();
-
   // Get user ID
-  //user_ID = getQueryVariable("user");
+  user_ID = getQueryVariable("user");
 
   // Get board ID
-  //retrieveBoardId();
+  retrieveBoardId();
 
   // Function for adding items
   $(document).on('click', '.add-item', addItem);
@@ -192,8 +189,10 @@ var addItem = function() {
   description = document.getElementById("description").value;
   if (description.length === 0) return;
   pomodoros = document.getElementById("pomodoros").value;
-  //board_ID = $('.boards option:selected').val();
-  /** Send AJAX call, update db
+  board_ID = $('.boards option:selected').val();
+  completed = 0;
+
+  // Send AJAX call, update db
   $.ajax("https://wwwp.cs.unc.edu/Courses/comp426-f16/users/gregmcd/item-php.php/", {
     type: "POST",
     dataType: 'json',
@@ -207,19 +206,19 @@ var addItem = function() {
       "user_ID" : user_ID,
       "board_ID" : board_ID,
       "pomodoros" : pomodoros,
-      "completed" : 0}),
-    success: function (data, status, xhr) { */
-      markup = "<div class='list-group-item draggable item'>"  +
+      "completed" : completed}),
+    success: function (data, status, xhr) {
+      markup = "<div class='list-group-item draggable item' id='" + data.item_ID + "'>" +
         description  +
-        " (0/" + pomodoros + ")"  +
+        " (" + completed + "/" + pomodoros + ")"  +
         "<a href='#' class='close' aria-hidden='true'>&times;</a></div>";
         $("#to-do-list").append(markup);
         $(".draggable").draggable();
         $('.list-group-item').click(timeable);
-/**    },
+   },
     error: function (xhr, status) {
       console.log(xhr.status);
       console.log(xhr.responseText);
     }
-  }); */
+  });
 };
