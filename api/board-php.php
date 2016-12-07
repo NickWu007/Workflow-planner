@@ -1,10 +1,10 @@
 <?php
+header("Access-Control-Allow-Origin: " . $_SERVER['HTTP_ORIGIN'] . "");
+header("Access-Control-Allow-Credentials : true");
 session_start();
-
 require_once('Board.php');
 require_once('User.php');
 require_once('authenticate.php');
-header("Access-Control-Allow-Origin: *");
 
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
      /* This is an update, specifically a description change */
@@ -29,7 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
          
         $post = json_decode(file_get_contents("php://input"), true);
         $description = $post['description'];
-        $result = $user->setDescription($description); 
+        $result = $board->setDescription($description); 
         if(!$result) {
             header("HTTP/1.1 500 Intenal Server Error");
             print("Database update failed.");
@@ -64,14 +64,14 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                 header('HTTP/1.1 401 Unauthorized');
   	            exit();
             }
-            
+  
             $new_board = Board::create($description, $user_id);
             if (is_null($new_board)) {
                 header("HTTP/1.1 500 Intenal Server Error");
                 print("Database insert failed.");
                 exit();
             }
-            
+
             $output = array( 'board_ID' => $new_board->getID(), 'description' => $description, 'user_ID' => $user_id);
             
             header("Content-type: application/json");
@@ -141,7 +141,7 @@ else if ($_SERVER['REQUEST_METHOD'] == "GET") {
                 exit();
             }
             
-            $output = array( 'board_ID' => $board->getID(), 'description' => $description, 'user_ID' => $user_id);
+            $output = array( 'board_ID' => $board->getID(), 'description' => $board->getDescription(), 'user_ID' => $user_id);
             
             header("Content-type: application/json");
             header("HTTP/1.1 200 OK");
@@ -166,7 +166,7 @@ else if ($_SERVER['REQUEST_METHOD'] == "GET") {
                 exit();
             }
             
-            $board_ids = Board::findByUserID();
+            $board_ids = Board::findByUserID($user_id);
             header("Content-type: application/json");
             header("HTTP/1.1 200 OK");
             print(json_encode($board_ids));
@@ -179,4 +179,3 @@ else if ($_SERVER['REQUEST_METHOD'] == "GET") {
 header("HTTP/1.1 400 Bad Request");
 print("Format not recognized");
 exit();
-?>
