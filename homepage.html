@@ -50,8 +50,9 @@
     <div class="container-fluid fill">
         <div class="row fill">
             <div class="col-md-3 well fill ice">
-              <div class="row new-task-container">
-                <h3 class="text-center">Add Task</h3>
+              <h3 class="text-center">Add Task</h3>
+              <div class="row" id="new-task-container">
+                <div class="container-fluid">
                 <form class="add-new">
                   <div class="form-group row">
                     <input type="text" class="form-control" id="description" placeholder="Add new task">
@@ -66,9 +67,10 @@
                     </div>
                   </div>
                 </form>
+               </div>
               </div>
-              <div class="row timer-container">
-                <div class="container-fluid well">
+              <div class="row" id="timer-container">
+                <div class="container-fluid">
 
                 	<div class="status row text-center">
                 		Not started working yet.
