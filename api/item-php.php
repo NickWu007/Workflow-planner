@@ -1,11 +1,11 @@
 <?php
+header("Access-Control-Allow-Origin: " . $_SERVER['HTTP_ORIGIN'] . "");
+header("Access-Control-Allow-Credentials : true");
 session_start();
-
 require_once('User.php');
 require_once('Board.php');
 require_once('Item.php');
 require_once('authenticate.php');
-header("Access-Control-Allow-Origin: *");
 
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
      /* This is an update*/
