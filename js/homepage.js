@@ -27,6 +27,7 @@ function retrieveBoardId() {
       crossDomain: true,
       success: function(data, status, xhr) {
         // alert("board_ID retireve successful.");
+        console.log(data);
         board_IDs = [];
         for (var i = 0; i < data.length; i++) {
           board_IDs.push(parseInt(data[i]));

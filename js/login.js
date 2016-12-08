@@ -32,6 +32,9 @@ $(document).ready(function() {
       url: "https://wwwp.cs.unc.edu/Courses/comp426-f16/users/gregmcd/login.php", 
       type: "POST",
       crossDomain: true,
+      xhrFields: {
+        withCredentials: true
+      },
       dataType: "json",
       data: JSON.stringify({
         "username" : username,
