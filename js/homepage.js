@@ -130,7 +130,13 @@ function populateItems(item_IDs) {
           data.completed + "/" + data.pomodoros + ")"  +
           "<a href='#' class='close' aria-hidden='true'>&times;</a></div>";
         $("#to-do-list").append(markup);
-        $(".draggable").draggable();
+        //$(".draggable").draggable();
+        $('.list-group-item').click(timeable);
+        $( "#to-do-list, #in-progress-list, #done-list").sortable({
+           connectWith: '.list-group',
+           appendTo: 'body',
+           containment: 'document'
+        }).disableSelection();
       },
       error : function(xhr, status){
         console.log(xhr.status);
@@ -154,6 +160,26 @@ $(document).ready(function() {
   // Function for deleting items
   $(document).on('click','.close', deleteItem);
 
+});
+
+
+$('.list-group').droppable({
+  drop: function(event, ui) {
+    var element = ui.helper,
+        id = element.attr("id");
+
+    console.log(id);
+
+    // Removing old element
+
+    // Changing object status
+
+    // Generating new element
+
+    // Updating Local Storage
+
+    // Hiding Delete Area
+  }
 });
 
 // deleteItem - Deletes item from list
@@ -215,8 +241,12 @@ var addItem = function() {
         " (0/" + pomodoros + ")"  +
         "<a href='#' class='close' aria-hidden='true'>&times;</a></div>";
         $("#to-do-list").append(markup);
-        $(".draggable").draggable();
+        //$(".draggable").draggable();
         $('.list-group-item').click(timeable);
+        $( ".list-group").sortable({
+           appendTo: 'body',
+           containment: "window"
+        }).disableSelection();
     },
     error: function (xhr, status) {
       console.log(xhr.status);
