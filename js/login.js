@@ -41,8 +41,8 @@ $(document).ready(function() {
         "password" : password
       }),
       success: function(data, status, xhr) {
-        alert("login successful.");
-        location.assign("homepage.html?user=" + data);
+        // alert("login successful.");
+        location.assign("homepage.html?user=" + data + "&name=" + username);
       },
       error : function(xhr, status){
         $('#username').css("border", "red thin solid");

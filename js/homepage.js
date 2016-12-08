@@ -148,6 +148,8 @@ $(document).ready(function() {
 
   // Get user ID
   user_ID = getQueryVariable("user");
+  var username = getQueryVariable("name");
+  $('#username').text(username);
 
   // Get board ID
   retrieveBoardId();
