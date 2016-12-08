@@ -80,6 +80,9 @@ class Board {
   public function delete() {
     $mysqli = Board::connect();
     $result0 = $mysqli->query("delete from Item where board_id = " . $this->id);
+    if(!$result0){
+      return false;
+    }
     $result = $mysqli->query("delete FROM Board where id = " .$this->id);
     return $result;
   }
