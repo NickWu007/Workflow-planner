@@ -136,7 +136,8 @@ function populateItems(item_IDs) {
           data.description  +
           " ("  +
           data.completed + "/" + data.pomodoros + ")"  +
-          "<a href='#' class='close' aria-hidden='true'>&times;</a></div>";
+          "<a href='#' class='close' aria-hidden='true'>&times; </a>" +
+          " <span class='glyphicon glyphicon-edit glyphicon-align-right item-edit' aria-hidden='true'></span></div>";
         var list;
 
         console.log(data);
@@ -144,6 +145,7 @@ function populateItems(item_IDs) {
         if (data.status == '1') list = "#in-progress-list";
         if (data.status == '2') list = "#done-list";
         $(list).append(markup);
+        $('.item-edit').click(changeItemDes);
         $(".draggable").draggable();
         $('.list-group-item').click(timeable);
         if (item_ID == working_task) {
@@ -289,6 +291,49 @@ function updateItem() {
   });
 }
 
+function changeItemDes() {
+  var des = $(this).parent().text();
+  console.log(des);
+  var item_ID = $(this).parent().attr('id');
+  var ans = prompt("Change item description", des.substr(0, des.indexOf('(') - 1));
+
+  if (ans != null && ans.length > 0) {
+    var current_pomodoro = parseInt(getCharAfter(des.substring(0,des.length - 1), '('));
+    var estimate_pomodoro = parseInt(getCharAfter(des.substring(0,des.length - 1), '/'));
+
+    var status;
+    if (current_pomodoro == 0) {
+      status = 0;
+    } else if (current_pomodoro + 1 == estimate_pomodoro) {
+      status = 2;
+    } else {
+      status = 1;
+    }
+
+    $.ajax("https://wwwp.cs.unc.edu/Courses/comp426-f16/users/gregmcd/item-php.php/" + item_ID, {
+    type: "POST",
+    dataType: 'json',
+    xhrFields: {
+      withCredentials: true
+    },
+    crossDomain: true,
+    data: JSON.stringify({
+      "description" : ans,
+      "status" : status,
+      "pomodoros" : estimate_pomodoro,
+      "completed" : current_pomodoro + 1}),
+    success: function (data, status, xhr) {
+      console.log('item updated');
+      retrieveItems();
+    },
+    error: function (xhr, status) {
+      console.log(xhr.status);
+      console.log(xhr.responseText);
+    }
+  });
+  }
+}
+
 
 // Timer stuff
 function play_audio(audio_id) {
@@ -402,7 +447,7 @@ function timeable() {
     alert('This task has been conpleted. Please select an incomplete test.');
     return;
   }
-  $('.target-des').text(str.substring(0,str.length - 1));
+  $('.target-des').text(str.substring(0,str.indexOf(')') + 1));
   $('.target-footer').text('Click on the item above to un-select it.');
 
   working_task = $(this).attr('id');
@@ -432,6 +477,7 @@ function update_time() {
       }
     } else {
       var minutes = duration - 1 - diff.minutes;
+      if (minutes < 0) minutes = 0;
       var seconds = 59 - diff.seconds;
       width = (Math.floor(diff.totSeconds/(duration *60)*95)+5) + "%";
       if (minutes < 10){ minutes = "0" + minutes; }
