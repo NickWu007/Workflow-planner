@@ -142,9 +142,6 @@ function populateItems(item_IDs) {
 
 $(document).ready(function() {
 
-  // Fill columns with items
-  // populateLists();
-
   // Get user ID
   user_ID = getQueryVariable("user");
 
@@ -194,6 +191,10 @@ var addItem = function() {
   pomodoros = document.getElementById("pomodoros").value;
   board_ID = $('.boards option:selected').val();
   // Send AJAX call, update db
+  console.log(description);
+  console.log(user_ID);
+  console.log(board_ID);
+  console.log(pomodoros);
   $.ajax("https://wwwp.cs.unc.edu/Courses/comp426-f16/users/gregmcd/item-php.php/", {
     type: "POST",
     dataType: 'json',
@@ -215,6 +216,7 @@ var addItem = function() {
         "<a href='#' class='close' aria-hidden='true'>&times;</a></div>";
         $("#to-do-list").append(markup);
         $(".draggable").draggable();
+        $('.list-group-item').click(timeable);
     },
     error: function (xhr, status) {
       console.log(xhr.status);
@@ -222,29 +224,3 @@ var addItem = function() {
     }
   });
 };
-
-
-/** populateLists - Populates initial lists when logged on
-var populateLists = function() {
-
-  // Send AJAX call
-  $.ajax("http://wwwp.cs.unc.edu/Courses/comp426-f16/users/junaowu/src/api/item-php.php", {
-    type: ,
-    dataType: ,
-    success: function (data, status, xhr) {
-
-
-    },
-    error: function (xhr, status) {
-      alert('Error populating list');
-    }
-  });
-
-};
-
-
-// updateItem - updates item if moved or completed
-var updateItem = function {
-
-}
-*/

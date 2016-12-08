@@ -137,7 +137,7 @@ else if ($_SERVER['REQUEST_METHOD'] == "GET") {
             $user = User::findByID($user_id);
 
             if($_SESSION['username'] != $user->getName()) {
-                header('HTTP/1.1 401 Unauthorized');
+                header('HTTP/1.1 401 Unauthorized (board)');
                 exit();
             }
             
@@ -162,7 +162,7 @@ else if ($_SERVER['REQUEST_METHOD'] == "GET") {
             }
 
             if($_SESSION['username'] != $user->getName()) {
-                header('HTTP/1.1 401 Unauthorized');
+                header('HTTP/1.1 401 Unauthorized (board)');
                 exit();
             }
             
@@ -179,3 +179,4 @@ else if ($_SERVER['REQUEST_METHOD'] == "GET") {
 header("HTTP/1.1 400 Bad Request");
 print("Format not recognized");
 exit();
+?>
