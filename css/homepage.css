@@ -1,6 +1,9 @@
 html, body {
   height:100%;
 }
+.list-group {
+  height: 30px;
+}
 .fill {
   height: 100%;
   overflow: hidden;
@@ -16,7 +19,7 @@ html, body {
 	background-color: #5DADE2;
 }
 
-.today {
+.in-progress {
 	background-color: #F4D03F;
 }
 

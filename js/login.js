@@ -32,14 +32,17 @@ $(document).ready(function() {
       url: "https://wwwp.cs.unc.edu/Courses/comp426-f16/users/gregmcd/login.php", 
       type: "POST",
       crossDomain: true,
+      xhrFields: {
+        withCredentials: true
+      },
       dataType: "json",
       data: JSON.stringify({
         "username" : username,
         "password" : password
       }),
       success: function(data, status, xhr) {
-        alert("login successful.");
-        location.assign("homepage.html?user=" + data);
+        // alert("login successful.");
+        location.assign("homepage.html?user=" + data + "&name=" + username);
       },
       error : function(xhr, status){
         $('#username').css("border", "red thin solid");
@@ -68,5 +71,5 @@ function setBg() {
   var images = ['img/login1.JPG', 'img/login2.JPG', 'img/login3.JPG'];
   var randomNumber = Math.floor(Math.random() * images.length);
   var bgImg = 'url(' + images[randomNumber] + ')';
-  $('body').css({'background-image':bgImg})
+  $('body').css({'background-image':bgImg});
 }
