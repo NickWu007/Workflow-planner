@@ -319,7 +319,6 @@ $(document).ready(function() {
 });
 
 // deleteItem - Deletes item from list
-// TO DO: Delete from database
 var deleteItem = function() {
 
   var item_ID = $(this).parent().attr("id");
@@ -343,7 +342,6 @@ var deleteItem = function() {
 };
 
 // addItem - Adds item to the list
-// TO DO: Add to DB
 var addItem = function() {
 
   var id, status, description, markup, user, board_ID, pomodoros, completed;
