@@ -33,7 +33,7 @@ function setup_ui() {
 		var state = $(this).text();
 		console.log('state = ' + state);
 
-		if (state == "Start") {			
+		if (state == "Start") {
 			$(this).removeClass('btn-success');
 			$(this).addClass('btn-danger');
 			start_work();
@@ -48,18 +48,11 @@ function setup_ui() {
 		}
 	});
 
-	$('.task').click(function() {
-		$('.target').removeClass('bg-warning');
-		$('.target-des').text($(this).text());
-		$('.target-footer').text('Click on the item above to un-select it.');
-
-		// TODO: integrate with the rest of homepage
-		working_task = 1;
-	});
+	$('.list-group-item').click(timeable);
 
 	$('.target-des').click(function() {
 		if (working_task < 0) return;
-		
+
 		$('.target').addClass('bg-warning');
 		$('.target-des').text('No task selected');
 		$('.target-footer').text('Click on a task on the board to select it.');
@@ -82,7 +75,7 @@ function start_work() {
 
 function start_break() {
 	start_time = new Date();
-	
+
 	if (pomodoro_count % 4 === 0) {
 		duration = 15;
 		$('#minutes').text("15");
@@ -118,7 +111,17 @@ function get_time_difference(earlierDate,laterDate) {
    oDiff.seconds = Math.floor(nTotalDiff/1000);
 
    return oDiff;
- 
+
+}
+
+function timeable() {
+	$('.target').removeClass('bg-warning');
+	// Remove last character (x) which is used to delete tasks
+	var str = $(this).text();
+	$('.target-des').text(str.substring(0,str.length - 1));
+	$('.target-footer').text('Click on the item above to un-select it.');
+
+	working_task = 1;
 }
 
 function update_time() {
