@@ -372,7 +372,7 @@ var addItem = function() {
       "pomodoros" : pomodoros,
       "completed" : 0}),
     success: function (data, status, xhr) {
-      markup = "<div class='list-group-item draggable item' id=" + data.item_ID + ">"  +
+      markup = "<div class='list-group-item draggable item' id='" + data.item_ID + "'>"  +
         description  +
         " (0/" + pomodoros + ")"  +
         "<a href='#' class='close' aria-hidden='true'>&times;</a></div>";
