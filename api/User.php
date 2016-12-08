@@ -4,6 +4,7 @@ class User {
   private $name;
   private $email;
   private $password;
+
   private static function connect() {
     return new mysqli("classroom.cs.unc.edu", "superqd", "upm3XuKe333tZjvY", "superqddb");
   }
@@ -98,7 +99,9 @@ class User {
   }
   
   public function delete() {
+//    $BoardDB = Board::connect();
     $mysqli = User::connect();
+    $result0 = $mysqli->query("delete from Board where user_id = \"$this->id\"");
     $result = $mysqli->query("delete FROM User where id = \"$this->id\"");
     return $result;
   }
