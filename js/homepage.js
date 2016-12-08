@@ -177,6 +177,10 @@ $(document).ready(function() {
   var username = getQueryVariable("name");
   $('#username').text(username);
 
+  $('#settings').click(function(){
+    location.assign("settings.html?user=" + user_ID + "&name=" + username);
+  });
+
   // Get board ID
   retrieveBoardId();
 
