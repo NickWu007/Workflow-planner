@@ -1,6 +1,9 @@
 html, body {
   height:100%;
 }
+.list-group {
+  height: 30px;
+}
 .fill {
   height: 100%;
   overflow: hidden;

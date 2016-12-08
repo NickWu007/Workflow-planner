@@ -146,11 +146,21 @@ function populateItems(item_IDs) {
         if (data.status == '2') list = "#done-list";
         $(list).append(markup);
         $('.item-edit').click(changeItemDes);
-        $(".draggable").draggable();
+        $('.draggable').draggable({
+          appendTo: 'body',
+          containment: 'window',
+          helper: 'clone'
+        });
         $('.list-group-item').click(timeable);
         if (item_ID == working_task) {
           $('.target-des').text(data.description+" ("+data.completed+"/"+data.pomodoros+")");
         }
+        $('.list-group-item').click(timeable);
+        /**$( "#to-do-list, #in-progress-list, #done-list").sortable({
+           connectWith: '.list-group',
+           appendTo: 'body',
+           containment: 'document'
+        }).disableSelection(); */
       },
       error : function(xhr, status){
         console.log(xhr.status);
@@ -167,6 +177,10 @@ $(document).ready(function() {
   var username = getQueryVariable("name");
   $('#username').text(username);
 
+  $('#settings').click(function(){
+    location.assign("settings.html?user=" + user_ID + "&name=" + username);
+  });
+
   // Get board ID
   retrieveBoardId();
 
@@ -176,20 +190,14 @@ $(document).ready(function() {
   // Function for deleting items
   $(document).on('click','.close', deleteItem);
 
+  // Function for updating items on drop
+  $('.list-group').droppable();
+
   setup_timer();
   setup_ui();
   update_time();
 
 });
-
-function setup_timer() {
-  start_time = new Date();
-  duration = 25;
-  pomodoro_count = 0;
-  working = false;
-  timer_running = false;
-  working_task = -1;
-}
 
 // deleteItem - Deletes item from list
 // TO DO: Delete from database
@@ -334,8 +342,55 @@ function changeItemDes() {
   }
 }
 
+function changeItemStatus() {
+  var des = $(this).parent().text();
+  des = des.substring(0,des.length - 1);
+  console.log(des);
+  var item_ID = $(this).parent().attr('id');
+  var current_pomodoro = parseInt(getCharAfter(des.substring(0,des.length - 1), '('));
+  var estimate_pomodoro = parseInt(getCharAfter(des.substring(0,des.length - 1), '/'));
+  var status;
+  // Get id from where dropped
+  // id =
+  // Get status from id
+  if (id == "to-do-list") status = 0;
+  if (id == "in-progress-list") status = 1;
+  if (id == "done-list") status = 2;
+
+  $.ajax("https://wwwp.cs.unc.edu/Courses/comp426-f16/users/gregmcd/item-php.php/" + item_ID, {
+  type: "POST",
+  dataType: 'json',
+  xhrFields: {
+    withCredentials: true
+  },
+  crossDomain: true,
+  data: JSON.stringify({
+    "description" : des,
+    "status" : status,
+    "pomodoros" : estimate_pomodoro,
+    "completed" : current_pomodoro + 1}),
+  success: function (data, status, xhr) {
+    console.log('item updated');
+    retrieveItems();
+  },
+  error: function (xhr, status) {
+    console.log(xhr.status);
+    console.log(xhr.responseText);
+  }
+});
+}
+
 
 // Timer stuff
+function setup_timer() {
+  start_time = new Date();
+  duration = 25;
+  pomodoro_count = 0;
+  working = false;
+  timer_running = false;
+  working_task = -1;
+}
+
 function play_audio(audio_id) {
   document.getElementById(audio_id).play();
 }
