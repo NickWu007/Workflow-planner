@@ -101,7 +101,8 @@ class User {
   public function delete() {
 //    $BoardDB = Board::connect();
     $mysqli = User::connect();
-    $result0 = $mysqli->query("delete from Board where user_id = \"$this->id\"");
+    $result0 = $mysqli->query("delete from Item where user_id = \"$this->id\"");
+    $result1 = $mysqli->query("delete from Board where user_id = \"$this->id\"");
     $result = $mysqli->query("delete FROM User where id = \"$this->id\"");
     return $result;
   }
