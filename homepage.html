@@ -18,7 +18,8 @@
 
     <!-- Custom styles for this template -->
     <link href="css/homepage.css" type='text/css' rel="stylesheet">
-
+    <link rel="stylesheet" type="text/css" href="timer.css">
+	  <script type="text/javascript" src="js/timer.js"> </script>
     <script src="js/homepage.js"></script>
 
   </head>
@@ -54,20 +55,56 @@
         <div class="row fill">
             <div class="col-md-3 well fill ice">
               <h3 class="text-center">Add Task</h3>
-              <form class="add-new">
-                <div class="form-group row">
-                  <input type="text" class="form-control" id="description" placeholder="Add new task">
-                </div>
-                <div class="form-group row">
-                  <label for="pomodoros" class="col-xs-4 col-form-label">Pomodoros</label>
-                  <div class="col-xs-4">
-                    <input class="form-control" type="number" value="5" id="pomodoros">
+              <div class="row" id="new-task-container">
+                <div class="container-fluid">
+                <form class="add-new">
+                  <div class="form-group row">
+                    <input type="text" class="form-control" id="description" placeholder="Add new task">
                   </div>
-                  <div class="col-xs-4">
-                    <button type="button" class="btn btn-primary pull-right add-item">Add Item</button></span>
+                  <div class="form-group row">
+                    <label for="pomodoros" class="col-xs-4 col-form-label">Pomodoros</label>
+                    <div class="col-xs-4">
+                      <input class="form-control" type="number" value="5" id="pomodoros">
+                    </div>
+                    <div class="col-xs-4">
+                      <button type="button" class="btn btn-primary pull-right add-item">Add Item</button></span>
+                    </div>
                   </div>
+                </form>
+               </div>
+              </div>
+              <div class="row" id="timer-container">
+                <div class="container-fluid">
+
+                	<div class="status row text-center">
+                		Not started working yet.
+                	</div>
+
+                	<div class="timer row" id="timer">
+                		<div class="col-md-7 col-sm-7 text-center">
+                			<span class="time" id="minutes">25</span>
+                			<span class=" time colon">:</span>
+                			<span class="time" id="seconds">00</span>
+                		</div>
+                		<div class="controls col-md-5 col-sm-5 text-center">
+                			<div id="startstop" class="btn btn-success startstop">Start</div>
+                		</div>
+                	</div>
+
+                	<div class="row report">
+                		Pomodoros done today: <span class="pomodoro"></span>
+                	</div>
+
+                	<div class="row target well">
+                		<div class="target-des text-center">No task selected</div>
+                		<small class="target-footer text-muted">Click on a task on the board to select it.</small>
+                	</div>
+                  
+                	<div class="explain row" id="explanation">
+                		<p>Work more efficiently with the <a href="http://www.pomodorotechnique.com/" target="_blank">Pomodoro technique</a></p>
+                	</div>
                 </div>
-              </form>
+              </div>
             </div>
             <div class="col-md-3 well fill today">
               <h3 class="text-center">To Do</h3>
@@ -86,5 +123,7 @@
             </div>
         </div>
     </div>
+    <audio id="ding" src="mp3/ding.mp3" preload="auto" autobuffer></audio>
+    <audio id="dingling" src="mp3/dingling.mp3" preload="auto" autobuffer></audio>
   </body>
 </html>
