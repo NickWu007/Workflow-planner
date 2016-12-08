@@ -170,6 +170,10 @@ $(document).ready(function() {
   // Get board ID
   retrieveBoardId();
 
+  $('.settings').prop({
+    'href': 'settings.html?user=' + user_ID + '&name=' + username
+  });
+
   // Function for adding items
   $(document).on('click', '.add-item', addItem);
 
