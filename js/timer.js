@@ -115,6 +115,7 @@ function get_time_difference(earlierDate,laterDate) {
 }
 
 function timeable() {
+
 	$('.target').removeClass('bg-warning');
 	// Remove last character (x) which is used to delete tasks
 	var str = $(this).text();
