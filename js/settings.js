@@ -97,6 +97,7 @@ function populateBoards() {
       url: "https://wwwp.cs.unc.edu/Courses/comp426-f16/users/gregmcd/board-php.php/" + board_ID,
       type: "GET",
       dataType: 'json',
+      async: false,
       xhrFields: {
         withCredentials: true
       },
@@ -109,8 +110,7 @@ function populateBoards() {
           '<div class="btn btn-danger delete-board">Delete Board</div>' +
           '</div>';
         $('.boards').append(markup);
-        $('.change-board').click(changeBoard);
-        $('.delete-board').click(deleteBoard);
+        
       },
       error : function(xhr, status){
         console.log(xhr.status);
@@ -118,6 +118,9 @@ function populateBoards() {
       }
     });
   });
+
+  $('.change-board').click(changeBoard);
+  $('.delete-board').click(deleteBoard);
 }
 
 function addNewBoard(e) {

@@ -126,6 +126,7 @@ function populateItems(item_IDs) {
     $.ajax({
       url: "https://wwwp.cs.unc.edu/Courses/comp426-f16/users/gregmcd/item-php.php/" + item_ID,
       type: "GET",
+      async: false,
       dataType: 'json',
       xhrFields: {
         withCredentials: true
@@ -145,7 +146,7 @@ function populateItems(item_IDs) {
         if (data.status == '1') list = "#in-progress-list";
         if (data.status == '2') list = "#done-list";
         $(list).append(markup);
-        $('.item-edit').click(changeItemDes);
+        // $('.item-edit').click(changeItemDes);
         //$(".draggable").draggable();
         $('.list-group-item').click(timeable);
         if (item_ID == working_task) {
@@ -158,6 +159,8 @@ function populateItems(item_IDs) {
       }
     });
   });
+
+  $('.item-edit').click(changeItemDes);
 }
 
 $(document).ready(function() {
@@ -274,9 +277,7 @@ var addItem = function(e) {
   });
 };
 
-function updateItem(e) {
-  e.preventDefault();
-  e.stopPropagation();
+function updateItem() {
   var item_ID = working_task;
   var des = $('.list-group-item#' + item_ID).text();
   var current_pomodoro = parseInt(getCharAfter(des.substring(0,des.length - 1), '('));
