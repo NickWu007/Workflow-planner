@@ -120,7 +120,9 @@ function populateBoards() {
   });
 }
 
-function addNewBoard() {
+function addNewBoard(e) {
+  e.preventDefault();
+  e.stopPropagation();
   var ans = prompt("Enter board description");
 
   if (ans != null && ans.length > 0) {
@@ -147,7 +149,9 @@ function addNewBoard() {
   }
 }
 
-function changeBoard() {
+function changeBoard(e) {
+  e.preventDefault();
+  e.stopPropagation();
   var board_ID = $(this).parent().attr("id");
   var des = $('.board#' + board_ID +" p").text();
   des = des.substr(des.indexOf(":") + 2);
@@ -177,7 +181,9 @@ function changeBoard() {
   }
 }
 
-function deleteBoard() {
+function deleteBoard(e) {
+  e.preventDefault();
+  e.stopPropagation();
   var board_ID = $(this).parent().attr("id");
   if (confirm("Do you want to delete this board?")) {
     $.ajax({
@@ -199,10 +205,11 @@ function deleteBoard() {
   }
 }
 
-function deleteUser() {
+function deleteUser(e) {
 
   // TO DO: Before deleting user, delete all boards and all items?
-
+  e.preventDefault();
+  e.stopPropagation();
   $.ajax({
     url: "https://wwwp.cs.unc.edu/Courses/comp426-f16/users/gregmcd/user-php.php/" + user_ID + "?action=delete",
     type: "GET",
@@ -221,8 +228,10 @@ function deleteUser() {
   });
 }
 
-function updateUser() {
+function updateUser(e) {
 
+  e.preventDefault();
+  e.stopPropagation();
   // Check new and confirm matches
   var password = $('#new-password').val();
   var confirm = $('#confirm-password').val();
@@ -239,7 +248,7 @@ function updateUser() {
           }),
           success: function (data, status, xhr) {
             console.log('user password updated');
-            alert("Your password is changed, please re-login");
+            // alert("Your password is changed, please re-login");
             logout();
           },
           error: function (xhr, status) {
@@ -261,7 +270,7 @@ function logout() {
       },
       crossDomain: true,
       success: function () {
-        alert('logout successful');
+        // alert('logout successful');
         window.location.assign('login.html');
       },
       error: function (xhr, status) {

@@ -207,7 +207,9 @@ function setup_timer() {
 
 // deleteItem - Deletes item from list
 // TO DO: Delete from database
-var deleteItem = function() {
+var deleteItem = function(e) {
+  e.preventDefault();
+  e.stopPropagation();
 
   var item_ID = $(this).parent().attr("id");
   $.ajax({
@@ -236,7 +238,9 @@ var deleteItem = function() {
 
 // addItem - Adds item to the list
 // TO DO: Add to DB
-var addItem = function() {
+var addItem = function(e) {
+  e.preventDefault();
+  e.stopPropagation();
 
   var id, status, description, markup, user, board_ID, pomodoros, completed;
 
@@ -270,7 +274,9 @@ var addItem = function() {
   });
 };
 
-function updateItem() {
+function updateItem(e) {
+  e.preventDefault();
+  e.stopPropagation();
   var item_ID = working_task;
   var des = $('.list-group-item#' + item_ID).text();
   var current_pomodoro = parseInt(getCharAfter(des.substring(0,des.length - 1), '('));
@@ -306,7 +312,9 @@ function updateItem() {
   });
 }
 
-function changeItemDes() {
+function changeItemDes(e) {
+  e.preventDefault();
+  e.stopPropagation();
   var des = $(this).parent().text();
   console.log(des);
   var item_ID = $(this).parent().attr('id');
