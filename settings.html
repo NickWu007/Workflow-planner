@@ -3,11 +3,10 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Workflow Planner</title>
+    <title>Settings</title>
 
     <!-- Bootstrap -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
@@ -42,6 +41,8 @@
         </div><!-- /.navbar-collapse -->
       </div><!-- /.container-fluid -->
     </nav>
+
+
     <!-- Delete User Modal -->
     <div class="modal fade" id="delete-user-modal" role="dialog">
       <div class="modal-dialog modal-sm">
@@ -96,16 +97,11 @@
         </div>
       </div>
     </div>
+
     <div class="container-fluid">
+      <div class="btn btn-primary add-board">Create New Board</div>
       <div class="page-header"><h1>Settings</h1></div>
-      <div class="well">
-          <h3>My First Board</h3>
-          <p>Description: my board for working</p>
-          <p>
-            <a href="homepage.html" class="btn btn-primary" role="button">Go to Board</a>
-            <a href="#" class="btn btn-default" role="button">Delete Board</a>
-          </p>
-      </div>
+      <div class="boards"></div>
     </div>
   </body>
 </html>

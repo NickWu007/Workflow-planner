@@ -126,6 +126,7 @@ function populateItems(item_IDs) {
     $.ajax({
       url: "https://wwwp.cs.unc.edu/Courses/comp426-f16/users/gregmcd/item-php.php/" + item_ID,
       type: "GET",
+      async: false,
       dataType: 'json',
       xhrFields: {
         withCredentials: true
@@ -145,7 +146,7 @@ function populateItems(item_IDs) {
         if (data.status == '1') list = "#in-progress-list";
         if (data.status == '2') list = "#done-list";
         $(list).append(markup);
-        $('.item-edit').click(changeItemDes);
+        // $('.item-edit').click(changeItemDes);
         //$(".draggable").draggable();
         $('.list-group-item').click(timeable);
         if (item_ID == working_task) {
@@ -158,6 +159,8 @@ function populateItems(item_IDs) {
       }
     });
   });
+
+  $('.item-edit').click(changeItemDes);
 }
 
 $(document).ready(function() {
@@ -173,6 +176,10 @@ $(document).ready(function() {
 
   // Get board ID
   retrieveBoardId();
+
+  $('.settings').prop({
+    'href': 'settings.html?user=' + user_ID + '&name=' + username
+  });
 
   // Function for adding items
   $(document).on('click', '.add-item', addItem);
@@ -203,7 +210,9 @@ function setup_timer() {
 
 // deleteItem - Deletes item from list
 // TO DO: Delete from database
-var deleteItem = function() {
+var deleteItem = function(e) {
+  e.preventDefault();
+  e.stopPropagation();
 
   var item_ID = $(this).parent().attr("id");
   $.ajax({
@@ -232,7 +241,9 @@ var deleteItem = function() {
 
 // addItem - Adds item to the list
 // TO DO: Add to DB
-var addItem = function() {
+var addItem = function(e) {
+  e.preventDefault();
+  e.stopPropagation();
 
   var id, status, description, markup, user, board_ID, pomodoros, completed;
 
@@ -256,6 +267,7 @@ var addItem = function() {
       "pomodoros" : pomodoros,
       "completed" : 0}),
     success: function (data, status, xhr) {
+      $('#description').val("");
       retrieveItems();
     },
     error: function (xhr, status) {
@@ -301,7 +313,9 @@ function updateItem() {
   });
 }
 
-function changeItemDes() {
+function changeItemDes(e) {
+  e.preventDefault();
+  e.stopPropagation();
   var des = $(this).parent().text();
   console.log(des);
   var item_ID = $(this).parent().attr('id');
@@ -331,7 +345,7 @@ function changeItemDes() {
       "description" : ans,
       "status" : status,
       "pomodoros" : estimate_pomodoro,
-      "completed" : current_pomodoro + 1}),
+      "completed" : current_pomodoro}),
     success: function (data, status, xhr) {
       console.log('item updated');
       retrieveItems();
