@@ -271,7 +271,7 @@ function updateItem() {
   var current_pomodoro = parseInt(getCharAfter(des.substring(0,des.length - 1), '('));
   var estimate_pomodoro = parseInt(getCharAfter(des.substring(0,des.length - 1), '/'));
   var status;
-  if (current_pomodoro + 1 == estimate_pomodoro) {
+  if (current_pomodoro + 1 >= estimate_pomodoro) {
     status = 2;
   } else {
     status = 1;
