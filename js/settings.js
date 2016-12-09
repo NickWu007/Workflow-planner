@@ -2,17 +2,55 @@ var user_ID;
 var board_IDs = [];
 var board_ID;
 var item_IDs = [];
-var start_time;
-var duration;
-var pomodoro_count;
-var working;
-var timer_running;
-var working_task;
 
-// Helper function get user id from the url.
+
+$(document).ready(function() {
+  user_ID = getQueryVariable("user");
+  console.log(user_ID);
+  var username = getQueryVariable("name");
+  console.log(username);
+  $('#username').text(username);
+  $('#username').prop('href', 'homepage.html?user=' + user_ID + "&name=" + username);
+
+
+  $('#delete-user').click(deleteUser);
+  $('#update-user').click(updateUser);
+  $('#log-out').click(logout);
+  $('.add-board').click(addNewBoard);
+
+  $('#change-password-form').bootstrapValidator({
+      // To use feedback icons, ensure that you use Bootstrap v3.1.0 or later
+      feedbackIcons: {
+          valid: 'glyphicon glyphicon-ok',
+          invalid: 'glyphicon glyphicon-remove',
+          validating: 'glyphicon glyphicon-refresh'
+      },
+      fields: {
+        password: {
+                  validators: {
+                      identical: {
+                          field: 'confirmPassword',
+                          message: 'Confirm your password below - type same password please'
+                      }
+                  }
+              },
+        confirmPassword: {
+            validators: {
+                identical: {
+                    field: 'password',
+                    message: 'The password and its confirm are not the same'
+                }
+            }
+         },
+      }
+    });
+
+  retrieveBoardId();
+});
+
 // Creditted to: https://css-tricks.com/snippets/javascript/get-url-variables/
 function getQueryVariable(variable) {
-  var query = window.location.search.substring(1);
+  var query = location.search.substring(1);
   var vars = query.split("&");
   for (var i=0;i<vars.length;i++) {
     var pair = vars[i].split("=");
@@ -161,6 +199,59 @@ function deleteBoard() {
   }
 }
 
+function deleteUser() {
+
+  // TO DO: Before deleting user, delete all boards and all items?
+
+  $.ajax({
+    url: "https://wwwp.cs.unc.edu/Courses/comp426-f16/users/gregmcd/user-php.php/" + user_ID + "?action=delete",
+    type: "GET",
+    xhrFields: {
+      withCredentials: true
+    },
+    crossDomain: true,
+    success: function () {
+      console.log("user deleted successful");
+      location.assign("login.html");
+    },
+    error: function (xhr, status) {
+      console.log(xhr.status);
+      console.log(xhr.responseText);
+    }
+  });
+}
+
+function updateUser() {
+
+  // Check new and confirm matches
+  var password = $('#new-password').val();
+  var confirm = $('#confirm-password').val();
+
+  if (password == confirm) {
+    $.ajax("https://wwwp.cs.unc.edu/Courses/comp426-f16/users/gregmcd/user-php.php/" + user_ID, {
+          type: "POST",
+          xhrFields: {
+            withCredentials: true
+          },
+          crossDomain: true,
+          data: JSON.stringify({
+            "password" : password
+          }),
+          success: function (data, status, xhr) {
+            console.log('user password updated');
+            alert("Your password is changed, please re-login");
+            logout();
+          },
+          error: function (xhr, status) {
+            console.log(xhr.status);
+            console.log(xhr.responseText);
+          }
+      });
+  } else {
+    alert('Passwords did not match');
+  }
+}
+
 function logout() {
   $.ajax({
       url: "https://wwwp.cs.unc.edu/Courses/comp426-f16/users/gregmcd/logout.php",
@@ -179,67 +270,3 @@ function logout() {
       }
     });
 }
-
-function changePw() {
-  var ans = prompt("Please type in the new password");
-
-  if (ans != null && ans.length > 0 && confirm("Are you sure you want to change password?")) {
-    $.ajax("https://wwwp.cs.unc.edu/Courses/comp426-f16/users/gregmcd/user-php.php/" + user_ID, {
-      type: "POST",
-      dataType: 'json',
-      xhrFields: {
-        withCredentials: true
-      },
-      crossDomain: true,
-      data: JSON.stringify({
-        "password" : ans
-      }),
-      success: function (data, status, xhr) {
-        console.log('user password updated');
-        alert("Your password is changed, please re-login");
-        logout();
-      },
-      error: function (xhr, status) {
-        console.log(xhr.status);
-        console.log(xhr.responseText);
-      }
-    });
-  }
-}
-
-function deleteUser() {
-  if (confirm("Are you sure you want to delete this account?")) {
-    $.ajax({
-      url: "https://wwwp.cs.unc.edu/Courses/comp426-f16/users/gregmcd/user-php.php/" + user_ID + "?action=delete",
-      type: "GET",
-      xhrFields: {
-        withCredentials: true
-      },
-      crossDomain: true,
-      success: function () {
-        console.log("user deleted successful");
-        logout();
-      },
-      error: function (xhr, status) {
-        console.log(xhr.status);
-        console.log(xhr.responseText);
-      }
-    });
-  }
-}
-
-$(document).ready(function() {
-
-  // Get user ID
-  user_ID = getQueryVariable("user");
-  var username = getQueryVariable("name");
-  $('#username').text(username);
-
-  // Get board ID
-  retrieveBoardId();
-  $('.add-board').click(addNewBoard);
-  $('.change-pw').click(changePw);
-  $('.delete-user').click(deleteUser);
-  $('#logout').click(logout);
-
-});

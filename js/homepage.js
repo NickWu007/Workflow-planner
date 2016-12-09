@@ -167,6 +167,10 @@ $(document).ready(function() {
   var username = getQueryVariable("name");
   $('#username').text(username);
 
+  $('#settings').click(function(){
+        location.assign("settings.html?user=" + user_ID + "&name=" + username);
+  });
+
   // Get board ID
   retrieveBoardId();
 
@@ -250,6 +254,7 @@ var addItem = function() {
       "pomodoros" : pomodoros,
       "completed" : 0}),
     success: function (data, status, xhr) {
+      $('#description').val("");
       retrieveItems();
     },
     error: function (xhr, status) {
@@ -325,7 +330,7 @@ function changeItemDes() {
       "description" : ans,
       "status" : status,
       "pomodoros" : estimate_pomodoro,
-      "completed" : current_pomodoro + 1}),
+      "completed" : current_pomodoro}),
     success: function (data, status, xhr) {
       console.log('item updated');
       retrieveItems();
