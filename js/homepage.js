@@ -146,7 +146,7 @@ function populateItems(item_IDs) {
         if (data.status == '2') list = "#done-list";
         $(list).append(markup);
         $('.item-edit').click(changeItemDes);
-        $(".draggable").draggable();
+        //$(".draggable").draggable();
         $('.list-group-item').click(timeable);
         if (item_ID == working_task) {
           $('.target-des').text(data.description+" ("+data.completed+"/"+data.pomodoros+")");
@@ -183,6 +183,12 @@ $(document).ready(function() {
 
   // Function for deleting items
   $(document).on('click','.close', deleteItem);
+
+  $('.list-group').sortable({
+    connectWith: 'list-group',
+    appendTo: 'body',
+    containment: 'window',
+  });
 
   setup_timer();
   setup_ui();
